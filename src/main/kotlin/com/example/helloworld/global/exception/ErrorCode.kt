@@ -3,5 +3,5 @@ package com.example.helloworld.global.exception
 import org.springframework.http.HttpStatus
 
 enum class ErrorCode(val status: HttpStatus, val message: String) {
-    OK(HttpStatus.OK,"요청 성공");
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND,"유저를 찾을 수 없습니다");
 }
