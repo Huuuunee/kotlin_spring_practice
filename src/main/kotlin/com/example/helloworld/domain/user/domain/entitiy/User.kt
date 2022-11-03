@@ -1,18 +1,15 @@
 package com.example.helloworld.domain.user.domain.entitiy
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import com.example.helloworld.global.entity.BaseIdEntity
+import javax.persistence.*
 
 @Entity
-class User (
-    val email: String,
-
-    val password : String,
-
-    val name : String,
-){
-    @Id
-    @GeneratedValue
-    val id = 0;
+@Table
+class User(
+        var email: String,
+        var password : String,
+        var name : String,
+        @Column(nullable = true, name = "refresh_token")
+        var refreshToken: String? = null
+) : BaseIdEntity(){
 }
