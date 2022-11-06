@@ -1,4 +1,4 @@
-package com.example.helloworld.global.redis.properties
+package com.example.helloworld.global.config.redis.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
