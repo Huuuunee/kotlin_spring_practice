@@ -1,6 +1,6 @@
-package com.example.helloworld.global.redis
+package com.example.helloworld.global.config.redis
 
-import com.example.helloworld.global.redis.properties.RedisProperties
+import com.example.helloworld.global.config.redis.properties.RedisProperties
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
