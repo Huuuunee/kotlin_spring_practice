@@ -1,5 +1,7 @@
 package com.example.helloworld.domain.user.presentation
 
+import SignInResponseDto
+import com.example.helloworld.domain.user.presentation.dto.request.SignInRequestDto
 import com.example.helloworld.domain.user.presentation.dto.request.SignUpRequestDto
 import com.example.helloworld.domain.user.service.AuthService
 import org.springframework.http.ResponseEntity
@@ -16,10 +18,12 @@ class AuthController(
 
     @PostMapping("/signup")
     fun signUp(@RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void>{
-
-        //회원가입 함수
         authService.signUp(signUpRequestDto)
         return ResponseEntity.ok().build()
     }
+
+    @PostMapping
+    fun signIn(@RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> =
+        ResponseEntity.ok(authService.signIn(signInRequestDto))
 
 }
