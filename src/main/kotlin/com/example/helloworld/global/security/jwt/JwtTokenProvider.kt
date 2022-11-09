@@ -41,7 +41,7 @@ class JwtTokenProvider(
         val token = req.getHeader("Authorization") ?: return null
         return parseToken(token)
     }
-
+    
     fun exactEmailFromRefreshToken(refresh: String): String {
         return getTokenSubject(refresh, jwtProperties.refreshSecret)
     }
