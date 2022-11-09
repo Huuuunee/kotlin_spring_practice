@@ -1,5 +1,6 @@
 package com.example.helloworld.domain.user.service.impl
 
+import RefreshTokenResponseDto
 import SignInResponseDto
 import com.example.helloworld.domain.email.domain.entity.EmailAuthEntity
 import com.example.helloworld.domain.email.domain.repository.EmailAuthRepository
@@ -12,6 +13,7 @@ import com.example.helloworld.domain.user.exception.UserNotFoundException
 import com.example.helloworld.domain.user.presentation.dto.request.SignInRequestDto
 import com.example.helloworld.domain.user.presentation.dto.request.SignUpRequestDto
 import com.example.helloworld.domain.user.service.AuthService
+import com.example.helloworld.global.security.exception.InvalidTokenException
 import com.example.helloworld.global.security.jwt.JwtTokenProvider
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -63,5 +65,21 @@ class AuthServiceImpl(
         user.updateToken(refreshToken)
 
         return SignInResponseDto(accessToken,refreshToken,expiredAt)
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun getNewRefreshToken(refresh: String): RefreshTokenResponseDto {
+        val changeRefresh = refresh.replace("Bearer " ,"")
+        val email: String = jwtTokenProvider.exactEmailFromRefreshToken(changeRefresh)
+        val user: User = userRepository.findByEmail(email) ?: throw UserNotFoundException()
+        if(user.refreshToken != changeRefresh)
+            throw InvalidTokenException()
+        val accessToken: String = jwtTokenProvider.generateAccessToken(email)
+        val refreshToken: String = jwtTokenProvider.generateRefreshToken(email)
+        val expiredAt: ZonedDateTime = jwtTokenProvider.accessExpiredTime
+
+        user.updateToken(refreshToken)
+
+        return RefreshTokenResponseDto(accessToken,refreshToken,expiredAt)
     }
 }
