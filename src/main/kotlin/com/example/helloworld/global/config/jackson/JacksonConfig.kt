@@ -1,4 +1,4 @@
-package com.example.helloworld.global.security.config.jackson
+package com.example.helloworld.global.config.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
