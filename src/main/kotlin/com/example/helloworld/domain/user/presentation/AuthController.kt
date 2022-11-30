@@ -6,6 +6,7 @@ import com.example.helloworld.domain.user.presentation.dto.request.SignInRequest
 import com.example.helloworld.domain.user.presentation.dto.request.SignUpRequestDto
 import com.example.helloworld.domain.user.service.AuthService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -32,5 +33,11 @@ class AuthController(
     @PatchMapping
     fun getNewRefreshToken(@RequestHeader("refreshToken") refresh: String): ResponseEntity<RefreshTokenResponseDto> =
         ResponseEntity.ok(authService.getNewRefreshToken(refresh))
+
+    @DeleteMapping
+    fun logout(): ResponseEntity<Void>{
+        authService.logOut()
+        return ResponseEntity.ok().build()
+    }
 
 }

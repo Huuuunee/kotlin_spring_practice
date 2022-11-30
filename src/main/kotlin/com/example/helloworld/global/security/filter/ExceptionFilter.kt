@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class ExceptionFilter(
-        private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper
 ): OncePerRequestFilter() {
     override fun doFilterInternal(
-            request: HttpServletRequest,
-            response: HttpServletResponse,
-            filterChain: FilterChain
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
     ) {
         try {
             filterChain.doFilter(request, response)

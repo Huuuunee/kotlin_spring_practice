@@ -9,4 +9,5 @@ interface AuthService {
     fun signUp(signUpRequestDto: SignUpRequestDto)
     fun signIn(signInRequestDto: SignInRequestDto): SignInResponseDto
     fun getNewRefreshToken(refresh: String): RefreshTokenResponseDto
+    fun logOut()
 }

@@ -39,9 +39,8 @@ class EmailServiceImpl(
 
         if(authEntity.attemptCount >= 3) throw ManyEmailAuthRequestException()
 
-        authEntity.updateRandomValue(value)
-        authEntity.increaseAttemptCount()
-        emailAuthRepository.save(authEntity)
+        val updateAuthEntity: EmailAuthEntity = authEntity.resendEmailAuth(value)
+        emailAuthRepository.save(updateAuthEntity)
 
         try {
             val message = mailSender.createMimeMessage()
@@ -60,13 +59,14 @@ class EmailServiceImpl(
     @Transactional(rollbackFor = [Exception::class])
     override fun emailVerified(email: String , uuid: String){
 
-        val emailAuthEntity = emailAuthRepository.findById(email)
+        val authEntity = emailAuthRepository.findById(email)
             .orElseThrow{ AuthExpiredException() }
 
-        if(emailAuthEntity.randomValue != uuid) throw AuthExpiredException()
+        if(authEntity.randomValue != uuid) throw AuthExpiredException()
 
-        emailAuthEntity.updateAuthentication(true)
-        emailAuthRepository.save(emailAuthEntity)
+        val updateAuthEntity = authEntity.updateAuthentication(true)
+        emailAuthRepository.save(updateAuthEntity)
+
     }
 
 }

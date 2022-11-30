@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class UserUtil(
     private val userRepository: UserRepository
 ) {
+
     fun fetchUserByEmail(email: String): User =
         userRepository.findByEmail(email) ?: throw UserNotFoundException()
-
 }
