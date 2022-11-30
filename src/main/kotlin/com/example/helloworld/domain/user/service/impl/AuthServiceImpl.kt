@@ -13,6 +13,7 @@ import com.example.helloworld.domain.user.exception.UserNotFoundException
 import com.example.helloworld.domain.user.presentation.dto.request.SignInRequestDto
 import com.example.helloworld.domain.user.presentation.dto.request.SignUpRequestDto
 import com.example.helloworld.domain.user.service.AuthService
+import com.example.helloworld.domain.user.util.UserUtil
 import com.example.helloworld.global.security.exception.InvalidTokenException
 import com.example.helloworld.global.security.jwt.JwtTokenProvider
 import org.springframework.scheduling.annotation.EnableAsync
@@ -28,20 +29,20 @@ class AuthServiceImpl(
     private val passwordEncoder: PasswordEncoder,
     private val userRepository: UserRepository,
     private val jwtTokenProvider: JwtTokenProvider,
-
-    ): AuthService{
+    private val userUtil: UserUtil
+) : AuthService {
 
     // 회원가입 기능
-    @Transactional(rollbackFor  = [Exception::class])
-    override fun signUp(signUpRequestDto: SignUpRequestDto){
+    @Transactional(rollbackFor = [Exception::class])
+    override fun signUp(signUpRequestDto: SignUpRequestDto) {
         val emailAuthEntity: EmailAuthEntity = emailAuthRepository.findById(signUpRequestDto.email)
-            .orElseThrow{ UserNotFoundException() };
+            .orElseThrow { UserNotFoundException() };
 
         //이메일 인증이 X
-        if(!emailAuthEntity.authentication) throw EmailNotVerifiedException()
+        if (!emailAuthEntity.authentication) throw EmailNotVerifiedException()
 
-        if(userRepository.existsByEmail(signUpRequestDto.email)){ // 회원가입 할때 이메일 있으면 안되니까
-                throw UserAlreadyException()
+        if (userRepository.existsByEmail(signUpRequestDto.email)) { // 회원가입 할때 이메일 있으면 안되니까
+            throw UserAlreadyException()
         }
         val user = User(
             email = signUpRequestDto.email,
@@ -55,31 +56,36 @@ class AuthServiceImpl(
     override fun signIn(signInRequestDto: SignInRequestDto): SignInResponseDto {
         val user: User = userRepository.findByEmail(signInRequestDto.email) ?: throw UserNotFoundException()
 
-        if(!passwordEncoder.matches(signInRequestDto.password,user.password)){
+        if (!passwordEncoder.matches(signInRequestDto.password, user.password)) {
             throw PasswordMismatchException()
         }
         val accessToken: String = jwtTokenProvider.generateAccessToken(signInRequestDto.email)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(signInRequestDto.email)
         val expiredAt: ZonedDateTime = jwtTokenProvider.accessExpiredTime
 
-        user.updateToken(refreshToken)
+        user.updateRefreshToken(refreshToken)
 
-        return SignInResponseDto(accessToken,refreshToken,expiredAt)
+        return SignInResponseDto(accessToken, refreshToken, expiredAt)
     }
 
     @Transactional(rollbackFor = [Exception::class])
     override fun getNewRefreshToken(refresh: String): RefreshTokenResponseDto {
-        val changeRefresh = refresh.replace("Bearer " ,"")
+        val changeRefresh = refresh.replace("Bearer ", "")
         val email: String = jwtTokenProvider.exactEmailFromRefreshToken(changeRefresh)
-        val user: User = userRepository.findByEmail(email) ?: throw UserNotFoundException()
-        if(user.refreshToken != changeRefresh)
+        val user: User = userUtil.currentUser(email)
+        if (user.refreshToken != changeRefresh)
             throw InvalidTokenException()
         val accessToken: String = jwtTokenProvider.generateAccessToken(email)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(email)
         val expiredAt: ZonedDateTime = jwtTokenProvider.accessExpiredTime
 
-        user.updateToken(refreshToken)
+        user.updateRefreshToken(refreshToken)
 
-        return RefreshTokenResponseDto(accessToken,refreshToken,expiredAt)
+        return RefreshTokenResponseDto(accessToken, refreshToken, expiredAt)
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun logOut() {
+        val user: User = userUtil.(email)
     }
 }
