@@ -1,6 +1,7 @@
 package com.example.helloworld.global.security.filter
 
 import com.example.helloworld.global.security.jwt.JwtTokenProvider
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse
 
 class JwtTokenFilter(
     private val jwtTokenProvider: JwtTokenProvider
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -23,5 +24,4 @@ class JwtTokenFilter(
         }
         filterChain.doFilter(request, response)
     }
-
 }

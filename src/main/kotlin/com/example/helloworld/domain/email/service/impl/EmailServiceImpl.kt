@@ -20,8 +20,9 @@ import javax.mail.MessagingException
 class EmailServiceImpl(
     private val mailSender: JavaMailSender,
     private val emailAuthRepository: EmailAuthRepository
-): EmailService{
+) : EmailService {
 
+    @Override
     @Transactional(rollbackFor = [Exception::class])
     override fun emailSend(emailSentRequestDto: EmailSentRequestDto) {
 
@@ -37,7 +38,7 @@ class EmailServiceImpl(
                 )
             )
 
-        if(authEntity.attemptCount >= 3) throw ManyEmailAuthRequestException()
+        if (authEntity.attemptCount >= 3) throw ManyEmailAuthRequestException()
 
         val updateAuthEntity: EmailAuthEntity = authEntity.resendEmailAuth(value)
         emailAuthRepository.save(updateAuthEntity)
@@ -53,16 +54,16 @@ class EmailServiceImpl(
         } catch (ex: MessagingException) {
             throw MessageSendFailException()
         }
-
     }
 
+    @Override
     @Transactional(rollbackFor = [Exception::class])
-    override fun emailVerified(email: String , uuid: String){
+    override fun emailVerified(email: String, uuid: String) {
 
         val authEntity = emailAuthRepository.findById(email)
-            .orElseThrow{ AuthExpiredException() }
+            .orElseThrow { AuthExpiredException() }
 
-        if(authEntity.randomValue != uuid) throw AuthExpiredException()
+        if (authEntity.randomValue != uuid) throw AuthExpiredException()
 
         val updateAuthEntity = authEntity.updateAuthentication(true)
         emailAuthRepository.save(updateAuthEntity)

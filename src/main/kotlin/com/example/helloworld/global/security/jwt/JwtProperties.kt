@@ -16,7 +16,7 @@ class JwtProperties(
     val refreshSecret: Key
 
     init {
-        this.accessSecret = Keys.hmacShaKeyFor(accessSecret.toByteArray(StandardCharsets.UTF_8))
-        this.refreshSecret = Keys.hmacShaKeyFor(refreshSecret.toByteArray(StandardCharsets.UTF_8))
+        this.accessSecret = Keys.hmacShaKeyFor(accessSecret.toByteArray())
+        this.refreshSecret = Keys.hmacShaKeyFor(refreshSecret.toByteArray())
     }
 }

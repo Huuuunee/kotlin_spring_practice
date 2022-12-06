@@ -1,4 +1,4 @@
-package com.example.helloworld.global.security.config.filter
+package com.example.helloworld.global.config.filter
 
 import com.example.helloworld.global.security.filter.ExceptionFilter
 import com.example.helloworld.global.security.filter.JwtTokenFilter

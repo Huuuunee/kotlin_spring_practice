@@ -63,29 +63,29 @@ class AuthServiceImpl(
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(signInRequestDto.email)
         val expiredAt: ZonedDateTime = jwtTokenProvider.accessExpiredTime
 
-        user.updateRefreshToken(refreshToken)
+        userRepository.save(user.updateRefreshToken(refreshToken))
 
         return SignInResponseDto(accessToken, refreshToken, expiredAt)
     }
 
     @Transactional(rollbackFor = [Exception::class])
-    override fun getNewRefreshToken(refresh: String): RefreshTokenResponseDto {
-        val changeRefresh = refresh.replace("Bearer ", "")
-        val email: String = jwtTokenProvider.exactEmailFromRefreshToken(changeRefresh)
-        val user: User = userUtil.currentUser(email)
-        if (user.refreshToken != changeRefresh)
+    override fun getNewRefreshToken(token: String): RefreshTokenResponseDto {
+        val refresh = jwtTokenProvider.parseToken(token) ?: throw InvalidTokenException()
+        val email: String = jwtTokenProvider.exactEmailFromRefreshToken(refresh)
+        val user: User = userUtil.fetchUserByEmail(email)
+        if (user.refreshToken != refresh)
             throw InvalidTokenException()
         val accessToken: String = jwtTokenProvider.generateAccessToken(email)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(email)
         val expiredAt: ZonedDateTime = jwtTokenProvider.accessExpiredTime
 
-        user.updateRefreshToken(refreshToken)
+        userRepository.save(user.updateRefreshToken(refreshToken))
 
         return RefreshTokenResponseDto(accessToken, refreshToken, expiredAt)
     }
 
     @Transactional(rollbackFor = [Exception::class])
     override fun logOut() {
-        val user: User = userUtil.(email)
+        
     }
 }
