@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse
 
 class ExceptionFilter(
     private val objectMapper: ObjectMapper
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -28,7 +28,7 @@ class ExceptionFilter(
     }
 
     private fun sendError(res: HttpServletResponse, errorCode: ErrorCode) {
-        val errorResponse = ErrorResponse(errorCode)
+        val errorResponse = ErrorResponse(errorCode.code, errorCode.msg)
         val responseString = objectMapper!!.writeValueAsString(errorResponse)
         res.status = errorCode.code
         res.contentType = MediaType.APPLICATION_JSON_VALUE
