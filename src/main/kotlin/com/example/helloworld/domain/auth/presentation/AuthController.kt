@@ -1,10 +1,10 @@
-package com.example.helloworld.domain.user.presentation
+package com.example.helloworld.domain.auth.presentation
 
-import RefreshTokenResponseDto
-import SignInResponseDto
-import com.example.helloworld.domain.user.presentation.dto.request.SignInRequestDto
-import com.example.helloworld.domain.user.presentation.dto.request.SignUpRequestDto
-import com.example.helloworld.domain.user.service.AuthService
+import com.example.helloworld.domain.auth.presentation.dto.response.RefreshTokenResponseDto
+import com.example.helloworld.domain.auth.presentation.dto.response.SignInResponseDto
+import com.example.helloworld.domain.auth.presentation.dto.request.SignInRequestDto
+import com.example.helloworld.domain.auth.presentation.dto.request.SignUpRequestDto
+import com.example.helloworld.domain.auth.service.AuthService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping

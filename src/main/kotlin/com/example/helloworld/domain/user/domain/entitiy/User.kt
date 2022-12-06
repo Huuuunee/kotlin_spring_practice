@@ -11,18 +11,5 @@ class User(
     val password: String,
 
     val name: String,
-
-    @Column(nullable = true, name = "refresh_token")
-    val refreshToken: String? = null
 ) : BaseIdEntity() {
-    fun updateRefreshToken(refreshToken: String): User {
-        val user = User(
-            email = this.email,
-            password = this.password,
-            refreshToken = refreshToken,
-            name = this.name
-        )
-        user.id = this.id
-        return user
-    }
 }
