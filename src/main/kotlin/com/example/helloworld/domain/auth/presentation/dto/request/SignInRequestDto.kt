@@ -1,4 +1,4 @@
-package com.example.helloworld.domain.user.presentation.dto.request
+package com.example.helloworld.domain.auth.presentation.dto.request
 
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
