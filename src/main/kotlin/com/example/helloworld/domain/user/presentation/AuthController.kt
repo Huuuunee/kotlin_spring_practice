@@ -21,7 +21,7 @@ class AuthController(
 ) {
 
     @PostMapping("/signup")
-    fun signUp(@RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void>{
+    fun signUp(@RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
         authService.signUp(signUpRequestDto)
         return ResponseEntity.ok().build()
     }
@@ -31,11 +31,11 @@ class AuthController(
         ResponseEntity.ok(authService.signIn(signInRequestDto))
 
     @PatchMapping
-    fun getNewRefreshToken(@RequestHeader("refreshToken") refresh: String): ResponseEntity<RefreshTokenResponseDto> =
-        ResponseEntity.ok(authService.getNewRefreshToken(refresh))
+    fun getNewRefreshToken(@RequestHeader("RefreshToken") token: String): ResponseEntity<RefreshTokenResponseDto> =
+        ResponseEntity.ok(authService.getNewRefreshToken(token))
 
     @DeleteMapping
-    fun logout(): ResponseEntity<Void>{
+    fun logout(): ResponseEntity<Void> {
         authService.logOut()
         return ResponseEntity.ok().build()
     }
