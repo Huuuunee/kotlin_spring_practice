@@ -11,7 +11,7 @@ class JacksonConfig {
 
     @Bean
     fun objectMapper(): ObjectMapper =
-            jacksonObjectMapper().apply {
-                this.registerModule(JavaTimeModule())
-            }
+        jacksonObjectMapper().apply {
+            this.registerModule(JavaTimeModule())
+        }
 }
