@@ -1,7 +1,8 @@
 package com.example.helloworld.domain.auth.service
 
-import com.example.helloworld.domain.auth.presentation.dto.response.RefreshTokenResponseDto
+import com.example.helloworld.domain.auth.presentation.data.dto.RefreshTokenDto
+import com.example.helloworld.domain.auth.presentation.data.response.RefreshTokenResponseDto
 
 interface GetNewRefreshTokenService {
-    fun execute(token: String): RefreshTokenResponseDto
+    fun execute(refreshTokenDto: RefreshTokenDto): RefreshTokenResponseDto
 }

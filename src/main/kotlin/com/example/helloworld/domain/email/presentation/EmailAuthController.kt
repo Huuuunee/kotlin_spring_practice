@@ -1,6 +1,6 @@
 package com.example.helloworld.domain.email.presentation
 
-import com.example.helloworld.domain.email.presentation.dto.request.EmailSendRequestDto
+import com.example.helloworld.domain.email.presentation.data.request.EmailSendRequestDto
 import com.example.helloworld.domain.email.service.EmailSendService
 import com.example.helloworld.domain.email.service.EmailVerifiedService
 import org.springframework.http.ResponseEntity
