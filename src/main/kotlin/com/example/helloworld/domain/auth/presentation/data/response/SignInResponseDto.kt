@@ -1,10 +1,10 @@
-package com.example.helloworld.domain.auth.presentation.dto.response
+package com.example.helloworld.domain.auth.presentation.data.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.ZonedDateTime
 
-data class RefreshTokenResponseDto(
+data class SignInResponseDto(
     @JsonProperty
     val accessToken: String,
 

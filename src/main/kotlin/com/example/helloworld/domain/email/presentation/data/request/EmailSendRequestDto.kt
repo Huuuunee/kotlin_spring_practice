@@ -1,4 +1,4 @@
-package com.example.helloworld.domain.email.presentation.dto.request
+package com.example.helloworld.domain.email.presentation.data.request
 
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
