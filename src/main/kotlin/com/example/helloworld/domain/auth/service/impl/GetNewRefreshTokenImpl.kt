@@ -20,9 +20,11 @@ class GetNewRefreshTokenImpl(
     @Override
     @Transactional(rollbackFor = [Exception::class])
     override fun execute(refreshTokenDto: RefreshTokenDto): RefreshTokenResponseDto {
-        val refresh = jwtTokenProvider.parseToken(refreshTokenDto.refreshToken) ?: throw InvalidTokenException()
+        val refresh = jwtTokenProvider.parseToken(refreshTokenDto.refreshToken)
+            ?: throw InvalidTokenException()
         val email: String = jwtTokenProvider.exactEmailFromRefreshToken(refresh)
-        val existingRefreshToken = refreshTokenRepository.findByToken(refresh) ?: throw ExpiredRefreshTokenException()
+        val existingRefreshToken = refreshTokenRepository.findByToken(refresh)
+            ?: throw ExpiredRefreshTokenException()
         val accessToken: String = jwtTokenProvider.generateAccessToken(email)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(email)
         val expiredAt: ZonedDateTime = jwtTokenProvider.accessExpiredTime
