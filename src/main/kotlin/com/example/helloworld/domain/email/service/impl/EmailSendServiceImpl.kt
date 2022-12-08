@@ -3,7 +3,7 @@ package com.example.helloworld.domain.email.service.impl
 import com.example.helloworld.domain.email.domain.entity.EmailAuthEntity
 import com.example.helloworld.domain.email.domain.repository.EmailAuthRepository
 import com.example.helloworld.domain.email.exception.ManyEmailAuthRequestException
-import com.example.helloworld.domain.email.presentation.dto.request.EmailSendRequestDto
+import com.example.helloworld.domain.email.presentation.data.request.EmailSendRequestDto
 import com.example.helloworld.domain.email.service.EmailSendService
 import com.example.helloworld.global.email.EmailSender
 import org.springframework.stereotype.Service

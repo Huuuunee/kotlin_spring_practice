@@ -9,5 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 @EnableAsync
 class UserServiceImpl(
-): UserService {
+    private val userRepository: UserRepository
+) : UserService {
+
 }
