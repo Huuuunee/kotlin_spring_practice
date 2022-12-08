@@ -4,7 +4,7 @@ import com.example.helloworld.domain.auth.presentation.dto.response.RefreshToken
 import com.example.helloworld.domain.auth.presentation.dto.response.SignInResponseDto
 import com.example.helloworld.domain.auth.presentation.dto.request.SignInRequestDto
 import com.example.helloworld.domain.auth.presentation.dto.request.SignUpRequestDto
-import com.example.helloworld.domain.auth.service.AuthService
+import com.example.helloworld.domain.auth.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -17,26 +17,29 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/auth")
 class AuthController(
-    private val authService: AuthService,
+    private val signInService: SignInService,
+    private val signUpService: SignUpService,
+    private val getNewRefreshTokenService: GetNewRefreshTokenService,
+    private val logOutService: LogOutService
 ) {
 
     @PostMapping("/signup")
     fun signUp(@RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
-        authService.signUp(signUpRequestDto)
+        signUpService.execute(signUpRequestDto)
         return ResponseEntity.ok().build()
     }
 
     @PostMapping
     fun signIn(@RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> =
-        ResponseEntity.ok(authService.signIn(signInRequestDto))
+        ResponseEntity.ok(signInService.execute(signInRequestDto))
 
     @PatchMapping
     fun getNewRefreshToken(@RequestHeader("RefreshToken") token: String): ResponseEntity<RefreshTokenResponseDto> =
-        ResponseEntity.ok(authService.getNewRefreshToken(token))
+        ResponseEntity.ok(getNewRefreshTokenService.execute(token))
 
     @DeleteMapping
     fun logout(): ResponseEntity<Void> {
-        authService.logOut()
+        logOutService.execute()
         return ResponseEntity.ok().build()
     }
 
