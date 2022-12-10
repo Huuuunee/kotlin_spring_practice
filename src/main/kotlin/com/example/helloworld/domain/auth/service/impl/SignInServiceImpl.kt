@@ -3,10 +3,9 @@ package com.example.helloworld.domain.auth.service.impl
 import com.example.helloworld.domain.auth.domain.entity.RefreshToken
 import com.example.helloworld.domain.auth.domain.repository.RefreshTokenRepository
 import com.example.helloworld.domain.auth.exception.PasswordMismatchException
-import com.example.helloworld.domain.auth.presentation.data.request.SignInRequestDto
 import com.example.helloworld.domain.auth.presentation.data.response.SignInResponseDto
 import com.example.helloworld.domain.auth.service.SignInService
-import com.example.helloworld.domain.user.domain.entitiy.User
+import com.example.helloworld.domain.user.domain.entity.User
 import com.example.helloworld.domain.user.domain.repository.UserRepository
 import com.example.helloworld.domain.user.exception.UserNotFoundException
 import com.example.helloworld.domain.user.presentation.data.dto.UserDto

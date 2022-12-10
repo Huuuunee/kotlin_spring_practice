@@ -1,11 +1,10 @@
 package com.example.helloworld.domain.auth.service.impl
 
-import com.example.helloworld.domain.auth.presentation.data.request.SignUpRequestDto
 import com.example.helloworld.domain.auth.service.SignUpService
 import com.example.helloworld.domain.email.domain.entity.EmailAuthEntity
 import com.example.helloworld.domain.email.domain.repository.EmailAuthRepository
 import com.example.helloworld.domain.email.exception.EmailNotVerifiedException
-import com.example.helloworld.domain.user.domain.entitiy.User
+import com.example.helloworld.domain.user.domain.entity.User
 import com.example.helloworld.domain.user.domain.repository.UserRepository
 import com.example.helloworld.domain.user.exception.UserAlreadyException
 import com.example.helloworld.domain.user.exception.UserNotFoundException
@@ -36,6 +35,7 @@ class SignUpServiceImpl(
             email = userDto.email,
             password = passwordEncoder.encode(userDto.password),
             name = userDto.name,
+            post = null
         )
         userRepository.save(user)
     }

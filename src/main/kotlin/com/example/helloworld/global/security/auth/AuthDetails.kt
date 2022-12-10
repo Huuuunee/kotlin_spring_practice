@@ -1,6 +1,6 @@
 package com.example.helloworld.global.security.auth
 
-import com.example.helloworld.domain.user.domain.entitiy.User
+import com.example.helloworld.domain.user.domain.entity.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

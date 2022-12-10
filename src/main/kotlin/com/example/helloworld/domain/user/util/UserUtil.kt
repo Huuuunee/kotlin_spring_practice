@@ -1,6 +1,6 @@
 package com.example.helloworld.domain.user.util
 
-import com.example.helloworld.domain.user.domain.entitiy.User
+import com.example.helloworld.domain.user.domain.entity.User
 
 interface UserUtil {
     fun fetchCurrentUser(): User

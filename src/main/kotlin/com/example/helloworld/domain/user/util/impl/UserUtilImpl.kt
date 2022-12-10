@@ -1,6 +1,6 @@
 package com.example.helloworld.domain.user.util.impl
 
-import com.example.helloworld.domain.user.domain.entitiy.User
+import com.example.helloworld.domain.user.domain.entity.User
 import com.example.helloworld.domain.user.domain.repository.UserRepository
 import com.example.helloworld.domain.user.exception.UserNotFoundException
 import com.example.helloworld.domain.user.util.UserUtil
