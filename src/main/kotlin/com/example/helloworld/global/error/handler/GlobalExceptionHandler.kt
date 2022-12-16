@@ -17,13 +17,10 @@ class GlobalExceptionHandler(
     private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
 
     @ExceptionHandler(BasicException::class)
-    fun globalExceptionHandler(request: HttpServletRequest, e: BasicException): ResponseEntity<ErrorResponse?> {
-        log.error(request.requestURL.toString())
-        log.error(e.errorCode.msg)
-        val errorCode: ErrorCode = e.errorCode
-        return ResponseEntity(
-            ErrorResponse(code = errorCode.code, msg = errorCode.msg),
-            HttpStatus.valueOf(errorCode.code)
-        )
+    fun basicExceptionHandler(request: HttpServletRequest, ex: BasicException): ResponseEntity<ErrorResponse> {
+        log?.error(request.requestURI)
+        log?.error(ex.message)
+        val errorResponse = ErrorResponse(ex.errorCode)
+        return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ex.errorCode.code))
     }
 }

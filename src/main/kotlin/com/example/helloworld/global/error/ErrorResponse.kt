@@ -1,9 +1,12 @@
 package com.example.helloworld.global.error
 
-import org.springframework.http.HttpStatus
 
-
-class ErrorResponse(
-    val code: Int,
+class ErrorResponse(errorCode: ErrorCode) {
     val msg: String
-)
+    val code: Int
+
+    init {
+        msg = errorCode.msg
+        code = errorCode.code
+    }
+}
