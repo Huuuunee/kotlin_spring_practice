@@ -1,7 +1,6 @@
 package com.example.helloworld.global.email
 
 import com.example.helloworld.domain.email.exception.MessageSendFailException
-import org.slf4j.LoggerFactory
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.stereotype.Component
 import javax.mail.Message
