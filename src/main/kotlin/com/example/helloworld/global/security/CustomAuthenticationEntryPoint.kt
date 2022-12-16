@@ -13,14 +13,16 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class CustomAuthenticationEntryPoint(
     private val objectMapper: ObjectMapper
-) : AuthenticationEntryPoint {
+): AuthenticationEntryPoint {
+
     override fun commence(
         request: HttpServletRequest,
         response: HttpServletResponse,
         authException: AuthenticationException
     ) {
         val errorCode = ErrorCode.UNAUTHORIZED
-        val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode.code, errorCode.msg))
+        val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode))
+        response.characterEncoding = "UTF-8"
         response.status = errorCode.code
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.writer.write(responseString)
