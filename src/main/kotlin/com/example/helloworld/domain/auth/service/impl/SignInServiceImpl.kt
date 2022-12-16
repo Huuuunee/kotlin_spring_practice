@@ -26,7 +26,7 @@ class SignInServiceImpl(
     @Transactional(rollbackFor = [Exception::class])
     override fun execute(userDto: UserDto): SignInResponseDto {
         val user: User = userRepository.findByEmail(userDto.email) ?: throw UserNotFoundException()
-        if (!passwordEncoder.matches(user.password, user.password)) {
+        if (!passwordEncoder.matches(userDto.password, user.password)) {
             throw PasswordMismatchException()
         }
         val accessToken: String = jwtTokenProvider.generateAccessToken(user.email)

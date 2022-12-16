@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 @Component
 class AuthConverterImpl : AuthConverter {
     override fun toDto(signUpRequestDto: SignUpRequestDto): UserDto =
-        UserDto(-1, signUpRequestDto.email, signUpRequestDto.password, "")
+        UserDto(-1, signUpRequestDto.email, signUpRequestDto.password, signUpRequestDto.name)
 
     override fun toDto(signInRequestDto: SignInRequestDto): UserDto =
         UserDto(-1, signInRequestDto.email, signInRequestDto.password, "")
