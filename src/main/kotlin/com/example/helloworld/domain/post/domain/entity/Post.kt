@@ -12,10 +12,10 @@ class Post(
     val content: String,
     @Column(nullable = false, length = 100)
     val title: String,
-    val views: Long,
+    val views: Long = 0,
     val localDateTime: LocalDateTime,
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     val user: User
 ) : BaseIdEntity(
 )
