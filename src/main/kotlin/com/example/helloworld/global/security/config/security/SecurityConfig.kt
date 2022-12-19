@@ -46,6 +46,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/email/authentication").permitAll()
             .antMatchers(HttpMethod.POST, "/email").permitAll()
 
+            .antMatchers(HttpMethod.POST, "/posting").authenticated()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
