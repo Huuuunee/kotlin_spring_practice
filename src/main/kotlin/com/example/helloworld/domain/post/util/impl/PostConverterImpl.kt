@@ -18,7 +18,7 @@ class PostConverterImpl() : PostConverter {
             content = createPostDto.content,
             title = createPostDto.title,
             views = 0,
-            localDateTime = LocalDateTime.now(),
+            createDateTime = LocalDateTime.now(),
             user = userInfo
         )
 }
