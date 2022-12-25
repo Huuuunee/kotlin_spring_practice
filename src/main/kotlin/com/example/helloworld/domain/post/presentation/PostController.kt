@@ -1,7 +1,6 @@
 package com.example.helloworld.domain.post.presentation
 
 import com.example.helloworld.domain.post.presentation.data.request.CreatePostRequestDto
-import com.example.helloworld.domain.post.presentation.data.request.GetPostInfoRequestDto
 import com.example.helloworld.domain.post.presentation.data.response.PostingListResponseDto
 import com.example.helloworld.domain.post.presentation.data.response.PostingResponseDto
 import com.example.helloworld.domain.post.service.CreatePostService
