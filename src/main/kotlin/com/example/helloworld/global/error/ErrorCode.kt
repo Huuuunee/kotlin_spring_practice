@@ -13,6 +13,7 @@ enum class ErrorCode(
     EMAIL_NOT_VERIFIED(401, "인증된 이메일이 아닙니다"),
 
     USER_NOT_FOUND(404, "존재하지 않는 유저입니다"),
+    POSTING_NOT_FOUND(404, "존제하지 않는 게시글입니다"),
 
     USER_ALREADY(409, "이미 가입된 이메일입니다"),
 
