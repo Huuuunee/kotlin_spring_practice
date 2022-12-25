@@ -2,6 +2,7 @@ package com.example.helloworld.domain.post.presentation
 
 import com.example.helloworld.domain.post.presentation.data.request.CreatePostRequestDto
 import com.example.helloworld.domain.post.presentation.data.response.PostingListResponseDto
+import com.example.helloworld.domain.post.presentation.data.response.PostingResponseDto
 import com.example.helloworld.domain.post.service.CreatePostService
 import com.example.helloworld.domain.post.service.GetPostInfoService
 import com.example.helloworld.domain.post.util.PostConverter
@@ -31,5 +32,11 @@ class PostController(
     @GetMapping
     fun getAllPostInfo(): ResponseEntity<PostingListResponseDto> =
         ResponseEntity.ok(getPostInfoService.execute())
+
+    @GetMapping("/{postId}")
+    fun getPostInfo(@PathVariable("postId") postId: Long): ResponseEntity<PostingResponseDto> =
+        postConverter.toDto(postId)
+            .let { getPostInfoService.execute(it) }
+            .let { ResponseEntity.ok(it) }
 
 }

@@ -1,7 +1,7 @@
 package com.example.helloworld.global.security.config.security
 
+    import com.example.helloworld.global.config.filter.FilterConfig
 import com.example.helloworld.global.security.CustomAuthenticationEntryPoint
-import com.example.helloworld.global.config.filter.FilterConfig
 import com.example.helloworld.global.security.jwt.JwtTokenProvider
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
@@ -49,6 +49,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/posting").authenticated()
             .antMatchers(HttpMethod.GET, "/posting").authenticated()
             .antMatchers(HttpMethod.GET, "/posting/list").authenticated()
+            .antMatchers(HttpMethod.GET, "/posting/{postid}").authenticated()
 
             .anyRequest().denyAll()
             .and()
