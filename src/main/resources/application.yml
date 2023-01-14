@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+  h2:
+    console:
+        enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    default-encoding: UTF-8
+    username: s21024@gsm.hs.kr
+    password: ksh1004@
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  messages:
+    basename: i18n/exception
+    encoding: UTF-8
+
+jwt:
+  accessSecret: TVNHdGVhbXRvb2szJEAjIQ==123412341234
+  refreshSecret: RGNVNSDJAdDVhbGRvb2HzJEAjIQ==123412341234
+
+
