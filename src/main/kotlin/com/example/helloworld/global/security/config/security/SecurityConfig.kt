@@ -51,6 +51,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/posting/list").authenticated()
             .antMatchers(HttpMethod.GET, "/posting/{postid}").authenticated()
 
+            .antMatchers(HttpMethod.GET, "/posting").hasRole("USER")
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()

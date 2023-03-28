@@ -15,6 +15,7 @@ class EmailSendServiceImpl(
     private val emailSender: EmailSender,
     private val emailAuthRepository: EmailAuthRepository
 ) : EmailSendService {
+
     @Override
     @Transactional(rollbackFor = [Exception::class])
     override fun execute(emailSendRequestDto: EmailSendRequestDto) {

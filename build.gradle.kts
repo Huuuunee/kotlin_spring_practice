@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("org.springframework.boot") version "2.7.4"
     id("io.spring.dependency-management") version "1.0.14.RELEASE"
@@ -19,7 +17,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation ("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -30,15 +28,11 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    testImplementation("io.kotest:kotest-runner-junit5:5.3.2")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.1")
+    testImplementation("io.mockk:mockk:1.13.2")
     implementation("org.springframework.boot:spring-boot-starter-mail:2.7.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
 }
 
 tasks.withType<Test> {

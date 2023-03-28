@@ -1,6 +1,5 @@
 package com.example.helloworld.domain.post.service.impl
 
-import com.example.helloworld.domain.post.domain.entity.Post
 import com.example.helloworld.domain.post.domain.repository.PostRepository
 import com.example.helloworld.domain.post.presentation.data.dto.CreatePostDto
 import com.example.helloworld.domain.post.service.CreatePostService
@@ -19,8 +18,8 @@ class CreatePostServiceImpl(
     @Override
     override fun execute(createPostDto: CreatePostDto) {
         val userInfo: User = userUtil.fetchCurrentUser()
-        val postInfo: Post = postConverter.toEntity(createPostDto, userInfo)
-        postRepository.save(postInfo)
+        postConverter.toEntity(createPostDto, userInfo)
+            .let { postRepository.save(it) }
     }
 
 }
